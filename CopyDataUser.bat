@@ -1,7 +1,7 @@
 @echo off
 
 echo.
-echo Profile data copy script V1.5
+echo Profile data copy script V1.7
 echo.
 echo /!\ This script must be executed on the source computer, abort if this is not the right computer /!\
 echo.
@@ -131,6 +131,10 @@ echo Profile copy : Outlook Signature
 if not exist Z:\Users\%user%\AppData\Roaming\Microsoft\Signatures (mkdir Z:\Users\%user%\AppData\Roaming\Microsoft\Signatures)
 
 robocopy /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%user%\AppData\Roaming\Microsoft\Signatures Z:\users\%user%\AppData\Roaming\Microsoft\Signatures
+
+echo Profile copy : Chrome bookmarks
+
+robocopy /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%user%\AppData\Local\Google\Chrome\User Data\Default\Bookmarks Z:\Users\%user%\AppData\Local\Google\Chrome\User Data\Default\Bookmarks
 
 echo.
 echo End of the data copy, if there are any files outside of the profile data, you must copy them manually.
