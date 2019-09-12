@@ -20,7 +20,7 @@ if exist Z: net use Z: /delete
 :: Asking for the name of the computer
 :NameProm
 set /p CompName= Enter the name of the computer : 
-echo Name entered : %CompName% 
+echo Computer Name entered : %CompName% 
 :NamePromVal
 set /p InfoOK= Is the data above correct ?(Y/N) : 
 if %InfoOK% == Y (
@@ -35,7 +35,7 @@ echo.
 :: Asking for credential 
 :UserProm
 set /p userA= Enter your Administrator account (Domain\user format) : 
-echo User entered : %userA%
+echo Login Administrator entered : %userA%
 :UserPromVal
 set /p userOK= Is the data above correct ?(Y/N) : 
 if %userOK% == Y (
@@ -81,7 +81,7 @@ if exist "Z:\users\%user%" (
 :: Copy arguments
 :CopArg
 set /p NbC= Enter the number of cores : 
-set /p LogF= Entrez the name of the log file : 
+set /p LogF= Enter the name of the log file : 
 echo Number of cores : %NbC% - Name of the log file : %LogF%
 :CopArgVal
 set /p InfoOK= Is the data above correct ?(Y/N) : 
