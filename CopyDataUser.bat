@@ -1,7 +1,7 @@
 @echo off
 
 ::International charcters
-chcp 28591 > nul
+chcp 858
 echo.
 echo Profile data copy script V1.8
 echo.
@@ -109,7 +109,7 @@ echo Profile copy : Contacts
 robocopy /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\users\%user%\Contacts Z:\users\%user%\Contacts
 
 echo Profile copy : Documents 
-robocopy /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\users\%user%\Documents Z:\users\%user%\Documents /XD "My Music" "My Pictures" "My Videos" "Ma Musique" "Mes Images" "Mes VidÃ©os"
+robocopy /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\users\%user%\Documents Z:\users\%user%\Documents /XD "My Music" "My Pictures" "My Videos" "Ma Musique" "Mes Images" "Mes Vid‚os"
 
 echo Profile copy : Downloads 
 robocopy /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\users\%user%\Downloads Z:\users\%user%\Downloads
