@@ -94,7 +94,7 @@ if %InfoOK% == Y (
 	) else ( 
 		goto CopArgVal
 	)
-echo The log file will be at the same location as this script
+echo The log file will be located at C:\users\%user%\%LogF%.log
 echo.
 pause
 echo.
@@ -137,6 +137,9 @@ robocopy /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%user%\AppData\Roa
 echo Profile copy : Chrome bookmarks
 
 robocopy /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log "C:\Users\%user%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%user%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
+
+echo Log Transfer
+robocopy robocopy /IS /TEE /ETA /MT:%NbC% %~dp0 "Z:\Users\%user%\" %LogF%.log
 
 echo.
 echo End of the data copy, if there are any files outside of the profile data, you must copy them manually.
