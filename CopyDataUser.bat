@@ -3,7 +3,7 @@
 ::International charcters
 chcp 858
 echo.
-echo Profile data copy script V1.9B
+echo Profile data copy script V1.9C
 echo.
 echo /!\ This script must be executed on the source computer, abort if this is not the right computer /!\
 echo.
@@ -50,7 +50,6 @@ if %userOK% == Y (
 echo.
 
 :: Mapping drive 
-
 echo Mapping Drive Z:
 net use Z: \\%CompName%\C$ /user:%userA% * /p:no
 if not exist Z: goto BegMD
@@ -82,9 +81,11 @@ if exist "Z:\users\%user%" (
 
 :: Copy arguments
 :CopArg
-set /p NbC= Enter the number of threads (paralel file copy 16 is recommended - 8 if not sure) : 
+::set /p NbC= Enter the number of threads (parallel file copy 16 is recommended - 8 if not sure) : Change the numbers manually setting this to default 8
+set NbC = 8
 set /p LogF= Enter the name of the log file : 
-echo Number of cores : %NbC% - Name of the log file : %LogF%
+::echo Number of cores : %NbC% - Name of the log file : %LogF%
+echo Name of the log file : %LogF%
 :CopArgVal
 set /p InfoOK= Is the data above correct ?(Y/N) : 
 if %InfoOK% == Y (
@@ -100,7 +101,6 @@ pause
 echo.
 
 ::Writing informations into the log file
-
 echo Source computer : %COMPUTERNAME% >> %LogF%.log
 echo Destination computer : %CompName% >> %LogF%.log
 echo User data to copy : %user% >> %LogF%.log
