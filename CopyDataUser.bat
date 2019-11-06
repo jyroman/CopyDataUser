@@ -3,7 +3,7 @@
 ::International charcters
 chcp 858
 echo.
-echo Profile data copy script V1.9D
+echo Profile data copy script V1.10
 echo.
 echo /!\ This script must be executed on the source computer, abort if this is not the right computer /!\
 echo.
@@ -57,10 +57,10 @@ if not exist Z: goto BegMD
 	
 :: Checking local profile
 :SelName1
-set /p user= Enter the user login to copy : 
-echo Login input : %user%
+set /p userl= Enter the local user login to copy : 
+echo Local login input : %userl%
 echo.
-if exist "C:\users\%user%" (
+if exist "C:\users\%userl%" (
 		echo Local profil checked
 		echo.
 	) else (
@@ -69,8 +69,24 @@ if exist "C:\users\%user%" (
 		goto SelName1	
 	)
 
-:: Checking distant profile
-if exist "Z:\users\%user%" (
+:: Selecting distant profile
+:SelName2
+set /p userSame= Is the distant login the same as the local login ?(Y/N) : 
+if %userSame% == N (
+	 set /p userd= Enter the distant user login to copy : 
+	 echo Distant login input : %userd%
+	 echo.
+	) else if %userSame% == Y (
+		set userd=%userl%
+		echo Distant login input : %userd%
+		echo.
+	) else ( 
+		goto SelName2
+	)  
+echo.
+
+::Checking local profile
+if exist "Z:\users\%userd%" (
 		echo Distant profile checked
 		echo.
 	) else (
@@ -112,46 +128,46 @@ echo.
 echo Beginning Data copy
 echo.
 echo Profile copy : Desktop 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Desktop Z:\users\%user%\Desktop
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Desktop Z:\users\%userd%\Desktop
 
 echo Profile copy : Contacts 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Contacts Z:\users\%user%\Contacts
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Contacts Z:\users\%userd%\Contacts
 
 echo Profile copy : Documents 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Documents Z:\users\%user%\Documents /XD "My Music" "My Pictures" "My Videos" "Ma Musique" "Mes Images" "Mes Vid‚os"
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Documents Z:\users\%userd%\Documents /XD "My Music" "My Pictures" "My Videos" "Ma Musique" "Mes Images" "Mes Vid‚os"
 
 echo Profile copy : Downloads 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Downloads Z:\users\%user%\Downloads
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Downloads Z:\users\%userd%\Downloads
 
 echo Profile copy : Favorites (Internet Explorer)
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Favorites Z:\users\%user%\Favorites
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Favorites Z:\users\%userd%\Favorites
 
 echo Profile copy : Links 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Links Z:\users\%user%\Links
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Links Z:\users\%userd%\Links
 
 echo Profile copy : Music 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Music Z:\users\%user%\Music
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Music Z:\users\%userd%\Music
 
 echo Profile copy : Pictures 
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Pictures Z:\users\%user%\Pictures
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Pictures Z:\users\%userd%\Pictures
 
 echo Profile copy : Videos
-robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%user%\%LogF%.log C:\users\%user%\Videos Z:\users\%user%\Videos
+robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Videos Z:\users\%userd%\Videos
 
 echo Profile copy : Outlook Signature
-if not exist Z:\Users\%user%\AppData\Roaming\Microsoft\Signatures (mkdir Z:\Users\%user%\AppData\Roaming\Microsoft\Signatures)
+if not exist Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures (mkdir Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures)
 
-robocopy /V /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%user%\AppData\Roaming\Microsoft\Signatures Z:\users\%user%\AppData\Roaming\Microsoft\Signatures
+robocopy /V /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%userl%\AppData\Roaming\Microsoft\Signatures Z:\users\%userd%\AppData\Roaming\Microsoft\Signatures
 
 echo Profile copy : Chrome bookmarks
 
-robocopy /V /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log "C:\Users\%user%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%user%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
+robocopy /V /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log "C:\Users\%userl%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%userd%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
 
 echo.
 echo End of the data copy, if there are any files outside of the profile data, you must copy them manually. >> %LogF%.log
 echo.
 
 ::Tranfer of log to the destination computer
-robocopy /IS /TEE /ETA /MT:%NbC% C:\users\%user%\ Z:\Users\%user%\ %LogF%.log
+robocopy /IS /TEE /ETA /MT:%NbC% C:\users\%userl%\ Z:\Users\%userd%\ %LogF%.log
 
 pause
