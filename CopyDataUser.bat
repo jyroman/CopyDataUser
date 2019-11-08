@@ -11,7 +11,7 @@ pause
 echo.
 
 :: Mounting Network Drive
-echo /!\ Warning if a Z: Drive is already mounted, it will be unmounted, abort the screept if needed. /!\
+echo /!\ Warning if a Z: Drive is already mounted, it will be unmounted, abort the script if needed. /!\
 echo.
 pause
 
@@ -59,6 +59,15 @@ if not exist Z: goto BegMD
 :SelName1
 set /p userl= Enter the local user login to copy : 
 echo Local login input : %userl%
+:UserPromVal2
+set /p userOK= Is the data above correct ?(Y/N) : 
+if %userOK% == Y (
+	echo Local user checked
+	) else if %userOK% == N (
+		goto SelName1
+	) else ( 
+		goto UserPromVal2
+	)  
 echo.
 if exist "C:\users\%userl%" (
 		echo Local profil checked
@@ -71,21 +80,19 @@ if exist "C:\users\%userl%" (
 
 :: Selecting distant profile
 :SelName2
-set /p userSame= Is the distant login the same as the local login ?(Y/N) : 
-if %userSame% == N (
-	 set /p userd= Enter the distant user login to copy : 
-	 echo Distant login input : %userd%
-	 echo.
-	) else if %userSame% == Y (
-		set userd=%userl%
-		echo Distant login input : %userd%
-		echo.
-	) else ( 
+set /p userd= Enter the distant user login to copy : 
+echo Distant login input : %userd%
+:UserPromVal3
+set /p userOK= Is the data above correct ?(Y/N) : 
+if %userOK% == Y (
+	echo Distant user checked
+	) else if %userOK% == N (
 		goto SelName2
-	)  
-echo.
-
-::Checking local profile
+	) else ( 
+		goto UserPromVal3
+	) 
+echo.	
+::Checking distant profile
 if exist "Z:\users\%userd%" (
 		echo Distant profile checked
 		echo.
@@ -119,7 +126,8 @@ echo.
 ::Writing informations into the log file
 echo Source computer : %COMPUTERNAME% >> %LogF%.log
 echo Destination computer : %CompName% >> %LogF%.log
-echo User data to copy : %user% >> %LogF%.log
+echo Local user data to copy : %userl% >> %LogF%.log
+echo Distant user data to copy : %userd% >> %LogF%.log
 echo Admin account used : %userA% >> %LogF%.log
 echo.
 
