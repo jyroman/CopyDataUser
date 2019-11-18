@@ -3,7 +3,7 @@
 ::International charcters
 chcp 858
 echo.
-echo Profile data copy script V1.10
+echo Profile data copy script V1.11
 echo.
 echo /!\ This script must be executed on the source computer, abort if this is not the right computer /!\
 echo.
@@ -21,7 +21,7 @@ if exist Z: net use Z: /delete
 
 :: Asking for the name of the computer
 :NameProm
-set /p CompName= Enter the name of the computer : 
+set /p CompName= Enter the name of the new computer : 
 echo Computer Name entered : %CompName% 
 :NamePromVal
 set /p InfoOK= Is the data above correct ?(Y/N) : 
@@ -31,7 +31,8 @@ if %InfoOK% == Y (
 		goto NameProm
 	) else ( 
 		goto NamePromVal
-	)  
+	) 
+echo New computer name checked
 echo.
 
 :: Asking for credential 
@@ -47,12 +48,16 @@ if %userOK% == Y (
 	) else ( 
 		goto UserPromVal
 	)  
+echo Administrator name checked
 echo.
 
 :: Mapping drive 
 echo Mapping Drive Z:
 net use Z: \\%CompName%\C$ /user:%userA% * /p:no
 if not exist Z: goto BegMD
+echo.
+echo Z: drive mounted
+echo.
 	
 	
 :: Checking local profile
@@ -99,8 +104,9 @@ if exist "Z:\users\%userd%" (
 	) else (
 		echo Profile not found, check the login or login into the computer
 		echo.
-		goto SelName1	
+		goto SelName2	
 	)
+echo.
 
 :: Copy arguments
 :CopArg
@@ -118,7 +124,7 @@ if %InfoOK% == Y (
 	) else ( 
 		goto CopArgVal
 	)
-echo The log file will be located in C:\users\%user%\ on the destination computer
+echo The log file will be located in C:\users\%user%\ on the new computer
 echo.
 pause
 echo.
@@ -135,40 +141,50 @@ echo.
 :: Begining data copy 
 echo Beginning Data copy
 echo.
-echo Profile copy : Desktop 
+echo Profile copy : Desktop >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Desktop Z:\users\%userd%\Desktop
 
-echo Profile copy : Contacts 
+echo Profile copy : Contacts >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Contacts Z:\users\%userd%\Contacts
 
-echo Profile copy : Documents 
+echo Profile copy : Documents >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Documents Z:\users\%userd%\Documents /XD "My Music" "My Pictures" "My Videos" "Ma Musique" "Mes Images" "Mes Vid‚os"
 
-echo Profile copy : Downloads 
+echo Profile copy : Downloads >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Downloads Z:\users\%userd%\Downloads
 
-echo Profile copy : Favorites (Internet Explorer)
+echo Profile copy : Favorites (Internet Explorer) >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Favorites Z:\users\%userd%\Favorites
 
-echo Profile copy : Links 
+echo Profile copy : Links >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Links Z:\users\%userd%\Links
 
-echo Profile copy : Music 
+echo Profile copy : Music >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Music Z:\users\%userd%\Music
 
-echo Profile copy : Pictures 
+echo Profile copy : Pictures >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Pictures Z:\users\%userd%\Pictures
 
-echo Profile copy : Videos
+echo Profile copy : Videos >> %LogF%.log
+echo.
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Videos Z:\users\%userd%\Videos
 
-echo Profile copy : Outlook Signature
+echo Profile copy : Outlook Signature >> %LogF%.log
+echo.
 if not exist Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures (mkdir Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures)
 
 robocopy /V /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%userl%\AppData\Roaming\Microsoft\Signatures Z:\users\%userd%\AppData\Roaming\Microsoft\Signatures
 
-echo Profile copy : Chrome bookmarks
-
+echo Profile copy : Chrome bookmarks >> %LogF%.log
+echo.
 robocopy /V /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log "C:\Users\%userl%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%userd%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
 
 echo.
