@@ -3,7 +3,7 @@
 ::International charcters
 chcp 858
 echo.
-echo Profile data copy script V1.11
+echo Profile data copy script V1.12
 echo.
 echo /!\ This script must be executed on the source computer, abort if this is not the right computer /!\
 echo.
@@ -32,7 +32,6 @@ if %InfoOK% == Y (
 	) else ( 
 		goto NamePromVal
 	) 
-echo New computer name checked
 echo.
 
 :: Asking for credential 
@@ -48,7 +47,6 @@ if %userOK% == Y (
 	) else ( 
 		goto UserPromVal
 	)  
-echo Administrator name checked
 echo.
 
 :: Mapping drive 
@@ -75,7 +73,7 @@ if %userOK% == Y (
 	)  
 echo.
 if exist "C:\users\%userl%" (
-		echo Local profil checked
+		echo Local profile checked
 		echo.
 	) else (
 		echo Profile not found, check the login or login into the computer
@@ -124,7 +122,7 @@ if %InfoOK% == Y (
 	) else ( 
 		goto CopArgVal
 	)
-echo The log file will be located in C:\users\%user%\ on the new computer
+echo The log file will be located in C:\users\%userd%\ on the new computer
 echo.
 pause
 echo.
