@@ -128,66 +128,66 @@ pause
 echo.
 
 ::Writing informations into the log file
-echo Source computer : %COMPUTERNAME% >> %LogF%.log
-echo Destination computer : %CompName% >> %LogF%.log
-echo Local user data to copy : %userl% >> %LogF%.log
-echo Distant user data to copy : %userd% >> %LogF%.log
-echo Admin account used : %userA% >> %LogF%.log
-echo.
+echo Source computer : %COMPUTERNAME% >> C:\users\%userl%\%LogF%.log
+echo Destination computer : %CompName% >> C:\users\%userl%\%LogF%.log
+echo Local user data to copy : %userl% >> C:\users\%userl%\%LogF%.log
+echo Distant user data to copy : %userd% >> C:\users\%userl%\%LogF%.log
+echo Admin account used : %userA% >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 
 
 :: Begining data copy 
 echo Beginning Data copy
 echo.
-echo Profile copy : Desktop >> %LogF%.log
-echo.
+echo Profile copy : Desktop >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Desktop Z:\users\%userd%\Desktop
 
-echo Profile copy : Contacts >> %LogF%.log
-echo.
+echo Profile copy : Contacts >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Contacts Z:\users\%userd%\Contacts
 
-echo Profile copy : Documents >> %LogF%.log
-echo.
+echo Profile copy : Documents >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Documents Z:\users\%userd%\Documents /XD "My Music" "My Pictures" "My Videos" "Ma Musique" "Mes Images" "Mes Vid‚os"
 
-echo Profile copy : Downloads >> %LogF%.log
-echo.
+echo Profile copy : Downloads >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Downloads Z:\users\%userd%\Downloads
 
-echo Profile copy : Favorites (Internet Explorer) >> %LogF%.log
-echo.
+echo Profile copy : Favorites (Internet Explorer) >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Favorites Z:\users\%userd%\Favorites
 
-echo Profile copy : Links >> %LogF%.log
-echo.
+echo Profile copy : Links >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Links Z:\users\%userd%\Links
 
-echo Profile copy : Music >> %LogF%.log
-echo.
+echo Profile copy : Music >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Music Z:\users\%userd%\Music
 
-echo Profile copy : Pictures >> %LogF%.log
-echo.
+echo Profile copy : Pictures >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Pictures Z:\users\%userd%\Pictures
 
-echo Profile copy : Videos >> %LogF%.log
-echo.
+echo Profile copy : Videos >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /E /XC /XN /XO /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\users\%userl%\Videos Z:\users\%userd%\Videos
 
-echo Profile copy : Outlook Signature >> %LogF%.log
-echo.
+echo Profile copy : Outlook Signature >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 if not exist Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures (mkdir Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures)
 
 robocopy /V /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%userl%\AppData\Roaming\Microsoft\Signatures Z:\users\%userd%\AppData\Roaming\Microsoft\Signatures
 
-echo Profile copy : Chrome bookmarks >> %LogF%.log
-echo.
+echo Profile copy : Chrome bookmarks >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 robocopy /V /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log "C:\Users\%userl%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%userd%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
 
-echo.
-echo End of the data copy, if there are any files outside of the profile data, you must copy them manually. >> %LogF%.log
-echo.
+echo. >> C:\users\%userl%\%LogF%.log
+echo End of the data copy, if there are any files outside of the profile data, you must copy them manually. >> C:\users\%userl%\%LogF%.log
+echo. >> C:\users\%userl%\%LogF%.log
 
 ::Tranfer of log to the destination computer
 robocopy /IS /TEE /ETA /MT:%NbC% C:\users\%userl%\ Z:\Users\%userd%\ %LogF%.log
