@@ -3,7 +3,7 @@
 ::International charcters
 chcp 858
 echo.
-echo Profile data copy script V1.12
+echo Profile data copy script V1.14 >> C:\users\%userl%\%LogF%.log
 echo.
 echo /!\ This script must be executed on the source computer, abort if this is not the right computer /!\
 echo.
