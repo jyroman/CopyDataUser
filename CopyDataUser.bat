@@ -179,11 +179,11 @@ echo Profile copy : Outlook Signature >> C:\users\%userl%\%LogF%.log
 echo. >> C:\users\%userl%\%LogF%.log
 if not exist Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures (mkdir Z:\Users\%userd%\AppData\Roaming\Microsoft\Signatures)
 
-robocopy /V /E /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log C:\Users\%userl%\AppData\Roaming\Microsoft\Signatures Z:\users\%userd%\AppData\Roaming\Microsoft\Signatures
+robocopy /V /E /IS /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log C:\Users\%userl%\AppData\Roaming\Microsoft\Signatures Z:\users\%userd%\AppData\Roaming\Microsoft\Signatures
 
 echo Profile copy : Chrome bookmarks >> C:\users\%userl%\%LogF%.log
 echo. >> C:\users\%userl%\%LogF%.log
-robocopy /V /IS /TEE /ETA /MT:%NbC% /log+:%LogF%.log "C:\Users\%userl%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%userd%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
+robocopy /V /IS /TEE /ETA /MT:%NbC% /log+:C:\users\%userl%\%LogF%.log "C:\Users\%userl%\AppData\Local\Google\Chrome\User Data\Default" "Z:\Users\%userd%\AppData\Local\Google\Chrome\User Data\Default" Bookmarks
 
 echo. >> C:\users\%userl%\%LogF%.log
 echo End of the data copy, if there are any files outside of the profile data, you must copy them manually. >> C:\users\%userl%\%LogF%.log
